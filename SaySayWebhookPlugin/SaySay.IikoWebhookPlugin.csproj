@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>SaySay.IikoWebhookPlugin</AssemblyName>
+    <RootNamespace>SaySay.IikoWebhookPlugin</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- iiko Front API SDK -->
+    <Reference Include="Resto.Front.Api">
+      <HintPath>$(IikoFrontPath)\Resto.Front.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Newtonsoft.Json для сериализации JSON -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
+    <!-- HTTP клиент -->
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Файл манифеста плагина -->
+    <None Update="manifest.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <!-- Путь к установленному iiko Front (укажите свой путь) -->
+    <IikoFrontPath>C:\Program Files\iiko\iikoRMS\Front.Net</IikoFrontPath>
+  </PropertyGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <ItemGroup>
+      <PluginFiles Include="$(OutputPath)**\*.*" />
+    </ItemGroup>
+
+    <!-- Копирование плагина в папку плагинов iiko -->
+    <Copy SourceFiles="@(PluginFiles)"
+          DestinationFolder="$(IikoFrontPath)\Plugins\SaySay.IikoWebhookPlugin\%(RecursiveDir)"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

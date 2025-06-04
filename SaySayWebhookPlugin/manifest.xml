@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+    <name>Say-Say Webhook Plugin</name>
+    <description>Плагин для отправки вебхуков при изменении заказов и доставок</description>
+    <version>1.0.0</version>
+    <vendor>Say-Say</vendor>
+    <assemblyName>SaySay.IikoWebhookPlugin.dll</assemblyName>
+    <dependencies>
+        <dependency name="IikoFront" minVersion="8.0" />
+    </dependencies>
+</manifest>
